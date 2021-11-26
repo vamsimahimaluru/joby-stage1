@@ -1,0 +1,83 @@
+.main-container {
+  width: 60%;
+  background-color: aqua;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 5px;
+}
+.card-container {
+  width: 25%;
+  background-color: blue;
+  border-radius: 15px;
+}
+.app-container2 {
+}
+.item-heading {
+  font-size: 15px;
+  font-weight: bold;
+}
+.logo1 {
+  height: 100%;
+  width: 20%;
+}
+.logo2 {
+  width: 55px;
+}
+.loc-work {
+  padding: 25px;
+  display: flex;
+  align-self: baseline;
+  justify-content: space-between;
+}
+.location {
+  font-size: 20px;
+}
+.work {
+  font-size: 20px;
+  margin-left: 15px;
+}
+.rating-head {
+  padding: 15px;
+}
+
+.app-container1 {
+  display: flex;
+}
+.conatiner {
+  display: flex;
+}
+.star {
+  display: flex;
+}
+.package {
+  display: flex;
+  justify-content: space-between;
+}
+.perannum {
+  font-size: 18px;
+}
+.docker {
+  display: flex;
+  margin: 25px;
+}
+.docker-container {
+  padding: 5px;
+}
+.skill-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.life-at-company {
+  display: flex;
+  padding: 10px;
+}
+.item-card-container {
+  background-color: blue;
+  padding: 15px;
+  width: 25%;
+  margin: 5px;
+}
+.item-app-container {
+  display: flex;
+}

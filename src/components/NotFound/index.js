@@ -1,10 +1,12 @@
 import Header from '../Header'
+import ProfileCard from '../ProfileCard'
 
 import './index.css'
 
 const NotFound = () => (
   <>
     <Header />
+    <ProfileCard />
 
     <div className="not-found-container">
       <img
