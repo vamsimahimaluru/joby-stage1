@@ -2,8 +2,17 @@ import './index.css'
 
 const ProfileCard = props => {
   const {data} = props
+
+  const setJobType = event => {
+    console.log(event.target.value)
+  }
+
+  const setPackage = event => {
+    console.log(event.target.value)
+  }
+
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="app-container">
         <img
           src="https://assets.ccbp.in/frontend/react-js/male-avatar-img.png"
@@ -14,8 +23,8 @@ const ProfileCard = props => {
       </div>
       <hr />
       <div>
-        <h1>Type of Employement</h1>
-        <form>
+        <h1>Type of Employment</h1>
+        <form onChange={setJobType.bind(this)}>
           <input type="checkbox" value="Full Time" />
           <label htmlFor="fulltime">Full Time</label>
           <br />
@@ -33,7 +42,7 @@ const ProfileCard = props => {
       <hr />
       <div>
         <h1>Salary Range</h1>
-        <form>
+        <form onChange={setPackage.bind(this)}>
           <input type="radio" name="10salaries" value="10Lpa" id="tenLpa" />
           <label htmlFor="tenLpa">10LPA and above</label>
           <br />

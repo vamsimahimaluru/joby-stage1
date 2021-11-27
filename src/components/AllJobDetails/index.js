@@ -2,7 +2,7 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import SearchDetails from '../SearchDetails/index'
-import Header from '../Header'
+
 import './index.css'
 
 const apiStatusConstants = {
@@ -16,6 +16,8 @@ class JobDetails extends Component {
   state = {
     jobDetails: [],
     searchInput: '',
+    jobType: '',
+    package: '',
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -40,6 +42,7 @@ class JobDetails extends Component {
 
     if (response.ok === true) {
       const fetchedData = await response.json()
+      console.log(fetchedData)
 
       const updatedData = fetchedData.jobs.map(eachjob => ({
         companyLogoUrl: eachjob.company_logo_url,
@@ -65,14 +68,15 @@ class JobDetails extends Component {
 
   renderJobDetailsList = () => {
     const {jobDetails, searchInput} = this.state
+    console.log(jobDetails)
     const searchResult = jobDetails.filter(eachUser =>
       eachUser.title.includes(searchInput),
     )
     return (
       <>
-        <Header />
         <div className="search-container">
           <input
+            placeholder="search"
             type="search"
             className="inputElement"
             onChange={this.onChangeInput}
