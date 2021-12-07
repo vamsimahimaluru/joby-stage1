@@ -16,8 +16,9 @@ class JobDetails extends Component {
   state = {
     jobDetails: [],
     searchInput: '',
-    jobType: '',
-    package: '',
+
+    // jobType: '',
+    // package: '',
     apiStatus: apiStatusConstants.initial,
   }
 

@@ -1,7 +1,8 @@
 import './index.css'
 
 const ProfileCard = props => {
-  const {data} = props
+  const {details} = props
+  const {name} = details
 
   const setJobType = event => {
     console.log(event.target.value)
@@ -18,7 +19,7 @@ const ProfileCard = props => {
           src="https://assets.ccbp.in/frontend/react-js/male-avatar-img.png"
           alt=""
         />
-        <h1>Rahul Attuluri</h1>
+        <h1>{name}</h1>
         <p>Lead Software Developer and AI-ML expert</p>
       </div>
       <hr />
