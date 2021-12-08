@@ -9,3 +9,28 @@
   width: 50%;
   height: 25px;
 }
+.failure-image {
+  height: 400px;
+  width: 450px;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+.failure-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  height: 40px;
+  width: 90px;
+  background-color: blue;
+  color: #fff;
+  margin-left: 30px;
+}
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 70px;
+}

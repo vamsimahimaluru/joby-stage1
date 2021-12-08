@@ -1,13 +1,15 @@
 import AllJobDetails from '../AllJobDetails'
-import ProfileCard from '../ProfileCard'
+// import ProfileCard from '../ProfileCard'
+import AllProfileDetails from '../AllProfileDetails'
 import Header from '../Header'
+
 import './index.css'
 
 const JobsRoute = () => (
   <>
     <Header />
     <div className="container">
-      <ProfileCard />
+      <AllProfileDetails />
       <AllJobDetails />
     </div>
   </>

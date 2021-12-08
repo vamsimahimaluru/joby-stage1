@@ -81,3 +81,7 @@
 .item-app-container {
   display: flex;
 }
+.visit-link {
+  display: flex;
+  justify-content: space-between;
+}

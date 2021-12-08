@@ -1,4 +1,3 @@
-import AllProfileDetails from '../AllProfileDetails'
 import Header from '../Header'
 
 import './index.css'
@@ -6,7 +5,6 @@ import './index.css'
 const NotFound = () => (
   <>
     <Header />
-    <AllProfileDetails />
 
     <div className="not-found-container">
       <img

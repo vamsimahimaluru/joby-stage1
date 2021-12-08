@@ -1,10 +1,11 @@
 import {Component} from 'react'
+import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 class JobItemFetch extends Component {
-  state = {jobsData: {}, isLoading: true}
+  state = {jobsData: [], isLoading: true}
 
   componentDidMount() {
     this.getJobItemData()
@@ -14,19 +15,29 @@ class JobItemFetch extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
-
-    const response = await fetch(`https://apis.ccbp.in/jobs/${id}`)
-    const data = await response.json()
-    console.log(data)
-
-    const updatedData = {
-      title: data.title,
-      imageUrl: data.image_url,
-      content: data.content,
-      avatarUrl: data.avatar_url,
-      author: data.author,
+    const jwtToken = Cookies.get('jwt_token')
+    const apiUrl = `https://apis.ccbp.in/jobs/${id}`
+    const options = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      method: 'GET',
     }
-    this.setState({jobsData: updatedData, isLoading: false})
+
+    const response = await fetch(apiUrl, options)
+
+    if (response.ok) {
+      const data = await response.json()
+      console.log(data)
+      const updatedData = {
+        title: data.title,
+        imageUrl: data.image_url,
+        content: data.content,
+        avatarUrl: data.avatar_url,
+        author: data.author,
+      }
+      this.setState({jobsData: updatedData, isLoading: false})
+    }
   }
 
   renderJobsItemDetails = () => {

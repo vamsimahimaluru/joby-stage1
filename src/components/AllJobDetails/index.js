@@ -16,9 +16,6 @@ class JobDetails extends Component {
   state = {
     jobDetails: [],
     searchInput: '',
-
-    // jobType: '',
-    // package: '',
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -31,6 +28,10 @@ class JobDetails extends Component {
   }
 
   renderJobs = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
+
     const jwtToken = Cookies.get('jwt_token')
     const api = 'https://apis.ccbp.in/jobs'
     const options = {
@@ -93,21 +94,27 @@ class JobDetails extends Component {
   }
 
   renderJobDetailsListFailureView = () => (
-    <img
-      src="https://assets.ccbp.in/frontend/react-js/exclusive-deals-banner-img.png"
-      alt="Register Prime"
-      className="register-prime-image"
-    />
+    <div className="failure-view">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+        alt="no jobs"
+        className="failure-image"
+      />
+      <button type="button" className="button">
+        Retry
+      </button>
+    </div>
   )
 
   renderLoadingView = () => (
-    <div className="primedeals-loader-container">
+    <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
   render() {
     const {apiStatus} = this.state
+    console.log(apiStatus)
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderJobDetailsList()
