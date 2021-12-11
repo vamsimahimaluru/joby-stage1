@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie'
 import {Component} from 'react'
 import ProfileCard from '../ProfileCard'
+import Test from '../Test'
+
+import './index.css'
 
 const employmentTypesList = [
   {
@@ -75,18 +78,14 @@ class AllProfileDetails extends Component {
   }
 
   render() {
-    const {profileDetails, employeeList, salaryRange} = this.state
+    const {profileDetails, employeeList} = this.state
 
     console.log(employeeList)
 
     return (
-      <div>
-        <ProfileCard details={(profileDetails, employeeList)} />
-        <ul>
-          {employeeList.map(eachEmp => (
-            <ProfileCard employeeList={eachEmp} />
-          ))}
-        </ul>
+      <div className="align">
+        <ProfileCard details={profileDetails} />
+        <Test />
       </div>
     )
   }

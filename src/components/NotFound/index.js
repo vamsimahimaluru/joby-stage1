@@ -1,10 +1,11 @@
 import Header from '../Header'
-
+import Test from '../Test'
 import './index.css'
 
 const NotFound = () => (
   <>
     <Header />
+    <Test />
 
     <div className="not-found-container">
       <img

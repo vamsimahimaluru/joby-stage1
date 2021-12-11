@@ -1,5 +1,5 @@
 import AllJobDetails from '../AllJobDetails'
-// import ProfileCard from '../ProfileCard'
+
 import AllProfileDetails from '../AllProfileDetails'
 import Header from '../Header'
 

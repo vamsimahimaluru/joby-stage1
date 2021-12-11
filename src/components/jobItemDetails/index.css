@@ -1,3 +1,18 @@
+.header_input {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  border: 1px solid black;
+}
+.header_input > input {
+  flex: 1;
+  border: none;
+}
+.header_icons {
+  display: flex;
+  align-items: center;
+}
+
 .main-container {
   width: 60%;
   background-color: aqua;

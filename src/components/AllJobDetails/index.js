@@ -33,14 +33,14 @@ class JobDetails extends Component {
     })
 
     const jwtToken = Cookies.get('jwt_token')
-    const api = 'https://apis.ccbp.in/jobs'
+    const jobsApiUrl = 'https://apis.ccbp.in/jobs'
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
       method: 'GET',
     }
-    const response = await fetch(api, options)
+    const response = await fetch(jobsApiUrl, options)
 
     if (response.ok === true) {
       const fetchedData = await response.json()
@@ -77,12 +77,23 @@ class JobDetails extends Component {
     return (
       <>
         <div className="search-container">
-          <input
+          {/* <input
             placeholder="search"
             type="search"
             className="inputElement"
             onChange={this.onChangeInput}
-          />
+          /> */}
+
+          <div className="header_input">
+            <input
+              placeholder="Search"
+              className="inputElement"
+              type="Search"
+              onChange={this.onChangeInput}
+            />
+            <i className="fas fa-search">0</i>
+          </div>
+
           <ul className="search">
             {searchResult.map(eachTitle => (
               <SearchDetails jobData={eachTitle} key={eachTitle.id} />
