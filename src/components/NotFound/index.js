@@ -1,12 +1,11 @@
 import Header from '../Header'
-import Test from '../Test'
+import JobItemDetails from '../JobItemDetails'
 import './index.css'
 
 const NotFound = () => (
   <>
     <Header />
-    <Test />
-
+    <JobItemDetails />
     <div className="not-found-container">
       <img
         src="https://assets.ccbp.in/frontend/react-js/jobby-app-not-found-img.png "

@@ -4,48 +4,11 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 // import AllJobDetails from './components/AllJobDetails'
-import jobItemDetails from './components/jobItemDetails'
+import JobItemDetails from './components/JobItemDetails'
+// import JobItemFetch from './components/JobItemFetch'
 import JobsRoute from './components/JobsRoute'
 
 import './App.css'
-
-// const employmentTypesList = [
-//   {
-//     label: 'Full Time',
-//     employmentTypeId: 'FULLTIME',
-//   },
-//   {
-//     label: 'Part Time',
-//     employmentTypeId: 'PARTTIME',
-//   },
-//   {
-//     label: 'Freelance',
-//     employmentTypeId: 'FREELANCE',
-//   },
-//   {
-//     label: 'Internship',
-//     employmentTypeId: 'INTERNSHIP',
-//   },
-// ]
-
-// const salaryRangesList = [
-//   {
-//     salaryRangeId: '1000000',
-//     label: '10 LPA and above',
-//   },
-//   {
-//     salaryRangeId: '2000000',
-//     label: '20 LPA and above',
-//   },
-//   {
-//     salaryRangeId: '3000000',
-//     label: '30 LPA and above',
-//   },
-//   {
-//     salaryRangeId: '4000000',
-//     label: '40 LPA and above',
-//   },
-// ]
 
 const App = () => (
   <>
@@ -54,7 +17,7 @@ const App = () => (
       <ProtectedRoute exact path="/" component={Home} />
       {/* <ProtectedRoute exact path="/jobs" component={AllJobDetails} /> */}
       <ProtectedRoute exact path="/jobs" component={JobsRoute} />
-      <ProtectedRoute exact path="/jobItem" component={jobItemDetails} />
+      <ProtectedRoute exact path="/jobs/:id" component={JobItemDetails} />
 
       <Route component={NotFound} />
     </Switch>

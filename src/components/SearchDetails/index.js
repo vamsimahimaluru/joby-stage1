@@ -4,6 +4,7 @@ import './index.css'
 const SearchDetails = props => {
   const {jobData} = props
   const {
+    id,
     employmentType,
     location,
     packagePerAnnum,
@@ -14,7 +15,7 @@ const SearchDetails = props => {
   } = jobData
   return (
     <>
-      <Link to="/jobItem">
+      <Link to={`jobs/${id}`}>
         <div className="background">
           <div className="main-container">
             <div className="app-container1">

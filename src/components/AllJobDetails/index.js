@@ -54,6 +54,7 @@ class JobDetails extends Component {
         packagePerAnnum: eachjob.package_per_annum,
         rating: eachjob.rating,
         title: eachjob.title,
+        id: eachjob.id,
       }))
 
       this.setState({
@@ -77,13 +78,6 @@ class JobDetails extends Component {
     return (
       <>
         <div className="search-container">
-          {/* <input
-            placeholder="search"
-            type="search"
-            className="inputElement"
-            onChange={this.onChangeInput}
-          /> */}
-
           <div className="header_input">
             <input
               placeholder="Search"
@@ -91,7 +85,9 @@ class JobDetails extends Component {
               type="Search"
               onChange={this.onChangeInput}
             />
-            <i className="fas fa-search">0</i>
+            <button type="button" testid="searchButton">
+              <i className="fas fa-search">0</i>
+            </button>
           </div>
 
           <ul className="search">
@@ -119,7 +115,13 @@ class JobDetails extends Component {
 
   renderLoadingView = () => (
     <div className="loader-container">
-      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+      <Loader
+        type="ThreeDots"
+        color="#0b69ff"
+        height="50"
+        width="50"
+        testid="loader"
+      />
     </div>
   )
 

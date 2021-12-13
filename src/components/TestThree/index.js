@@ -6,7 +6,7 @@ const TestThree = props => {
     <div>
       <form>
         <li>
-          <input type="radio" value="label" name="checkbox" />
+          <input type="radio" value="label" name="radio" />
           <label htmlFor="radio">{label}</label>
         </li>
       </form>

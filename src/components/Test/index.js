@@ -51,16 +51,20 @@ class Test extends Component {
       <div>
         <h1 className="heading">Type of Employment</h1>
         <ul>
-          {employeList.map(eachEmp => (
-            <TestTwo list={eachEmp} key={eachEmp.employmentTypeId} />
-          ))}
+          <li>
+            {employeList.map(eachEmp => (
+              <TestTwo list={eachEmp} key={eachEmp.employmentTypeId} />
+            ))}
+          </li>
         </ul>
         <hr />
         <h1 className="heading">Salary Range</h1>
         <ul>
-          {salaryList.map(eachSalary => (
-            <TestThree salary={eachSalary} key={eachSalary.salaryRangeId} />
-          ))}
+          <li>
+            {salaryList.map(eachSalary => (
+              <TestThree salary={eachSalary} key={eachSalary.salaryRangeId} />
+            ))}
+          </li>
         </ul>
       </div>
     )
