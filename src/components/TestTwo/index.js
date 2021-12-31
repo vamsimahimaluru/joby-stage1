@@ -6,10 +6,8 @@ const TestTwo = props => {
     <div>
       <form>
         <li>
-          <input type="checkbox" name="checkbox" />
-          <label htmlFor="checkbox" value="label">
-            {label}
-          </label>
+          <input type="checkbox" name="checkbox" id="label" value="label" />
+          <label htmlFor="checkbox">{label}</label>
         </li>
       </form>
     </div>

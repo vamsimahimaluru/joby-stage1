@@ -1,0 +1,42 @@
+.item-card-container {
+  background-color: blue;
+  padding: 15px;
+  width: 25%;
+  margin: 5px;
+}
+.item-app-container {
+  display: flex;
+}
+.location {
+  display: flex;
+}
+.employment-type {
+  display: flex;
+}
+.logo1 {
+  height: 100%;
+  width: 20%;
+}
+.logo2 {
+  width: 55px;
+}
+.package {
+  display: flex;
+  justify-content: space-between;
+}
+.loc-work {
+  padding: 25px;
+  display: flex;
+  align-self: baseline;
+  justify-content: space-between;
+}
+.location {
+  font-size: 20px;
+}
+.work {
+  font-size: 20px;
+  margin-left: 15px;
+}
+.perannum {
+  font-size: 18px;
+}

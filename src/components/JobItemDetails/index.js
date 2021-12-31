@@ -1,22 +1,63 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
 import Header from '../Header'
-
+import SkillsCard from '../SkillsCard'
+import SimilarJobs from '../SimilarJobs'
 import './index.css'
 
-class BlogItemDetails extends Component {
-  state = {jobItemData: {}}
+const apiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  unsuccessful: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
+
+class JobItemDetails extends Component {
+  state = {jobData: {}, similarJobs: [], apiStatus: apiStatusConstants.initial}
 
   componentDidMount() {
     this.getJobItemData()
   }
 
+  getFormattedData = data => ({
+    companyLogoUrl: data.company_logo_url,
+    companyWebsiteUrl: data.company_website_url,
+    employmentType: data.employment_type,
+    jobDescription: data.job_description,
+    id: data.id,
+    location: data.location,
+    packagePerAnnum: data.package_per_annum,
+    rating: data.rating,
+    title: data.title,
+
+    description: data.life_at_company.description,
+    imageUrl: data.life_at_company.image_url,
+
+    skills: data.skills.map(skill => ({
+      name: skill.name,
+      imageUrl: skill.image_url,
+    })),
+  })
+
+  getSimilarJobData = data => ({
+    title: data.title,
+    companyLogoUrl: data.company_logo_url,
+    employmentType: data.employment_type,
+    jobDescription: data.job_description,
+    id: data.id,
+    location: data.location,
+    packagePerAnnum: data.package_per_annum,
+    rating: data.rating,
+  })
+
   getJobItemData = async () => {
     const {match} = this.props
     const {params} = match
     const {id} = params
-    console.log(id)
-    const jwtToken = Cookies.get('jwt_token')
+
+    const jwtToken = Cookies.get('jwt_toke')
     const apiUrl = `https://apis.ccbp.in/jobs/${id}`
     const options = {
       headers: {
@@ -26,32 +67,29 @@ class BlogItemDetails extends Component {
     }
     const response = await fetch(apiUrl, options)
 
-    const data = await response.json()
-    console.log(data)
-    const updatedData = {
-      companyLogoUrl: data.job_details.company_logo_url,
-      companyWebsiteUrl: data.job_details.company_website_url,
-      employmentType: data.job_details.employment_type,
-      id: data.job_details.id,
-      jobDescription: data.job_details.job_description,
-      location: data.job_details.location,
-      rating: data.job_details.rating,
-      title: data.job_details.title,
-      lifeAtCompany: data.job_details.life_at_company,
-      packagePerAnnum: data.job_details.package_per_annum,
-      skills: data.job_details.skills,
-      description: data.job_details.life_at_company.description,
-      imageUrl: data.job_details.life_at_company.image_url,
-      name: data.job_details.skills[2].name,
-      imageUrlSkill: data.job_details.skills[2].image_url,
-      similarJobs: data.similar_jobs,
+    if (response.ok) {
+      const fetchedData = await response.json()
+      console.log(fetchedData)
+      const updatedData = this.getFormattedData(fetchedData.job_details)
+      const updatedSimilarJobsData = fetchedData.similar_jobs.map(
+        eachSimilarJob => this.getSimilarJobData(eachSimilarJob),
+      )
+
+      this.setState({
+        jobData: updatedData,
+        similarJobs: updatedSimilarJobsData,
+        apiStatus: apiStatusConstants.success,
+      })
     }
-    this.setState({jobItemData: updatedData})
+    if (response.status === 401) {
+      this.setState({
+        apiStatus: apiStatusConstants.unsuccessful,
+      })
+    }
   }
 
-  renderBlogItemDetails = () => {
-    const {jobItemData} = this.state
-    console.log(jobItemData)
+  renderJobItemDetailsView = () => {
+    const {jobData, similarJobs} = this.state
     const {
       companyLogoUrl,
       companyWebsiteUrl,
@@ -62,124 +100,126 @@ class BlogItemDetails extends Component {
       title,
       description,
       imageUrl,
-      imageUrlSkill,
+      imageUrlSkills,
       name,
       packagePerAnnum,
-    } = jobItemData
+    } = jobData
+
     return (
       <>
-        <Header />
-
         <div className="background">
           <div className="main-container">
             <div className="app-container1">
-              <img className="logo1" src={companyLogoUrl} alt="image1" />
+              <img
+                className="logo1"
+                src={companyLogoUrl}
+                alt="job details company logo"
+              />
+
               <div className="rating-head">
                 <h1>{title}</h1>
                 <div className="star">
-                  <i className="fas fa-star">{rating}</i>
+                  <p>
+                    <i className="fas fa-star" />
+                    {rating}
+                  </p>
                 </div>
               </div>
             </div>
             <div className="package">
               <div className="loc-work">
-                <i className="fas fa-map-marker-alt location">{location}</i>
-                <i className="fas fa-briefcase work">{employmentType}</i>
+                <i className="fas fa-map-marker-alt location" />
+                <p>{location}</p>
+                <i className="fas fa-briefcase work" />
+                <p>{employmentType}</p>
               </div>
-              <h1 className="perannum">{packagePerAnnum}</h1>
+              <p className="perannum">{packagePerAnnum}</p>
             </div>
             <hr />
             <div>
-              <div className="visit-link">
+              <div className="visited">
                 <h1>Description</h1>
                 <a href={companyWebsiteUrl}>Visit</a>
               </div>
               <p>{jobDescription}</p>
             </div>
-            <div className="docker-container">
-              <h1>Skills</h1>
-              <div className="skill-container">
-                <div className="docker">
-                  <img src={imageUrlSkill} alt="" />
-                  <p>{name}</p>
-                </div>
-                <div className="docker">
-                  <img src="https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png" />
-                  <p>Docker</p>
-                </div>
-                <div className="docker">
-                  <img src="https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png" />
-                  <p>Docker</p>
-                </div>
-                <div className="docker">
-                  <img src="https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png" />
-                  <p>Docker</p>
-                </div>
-                <div className="docker">
-                  <img src="https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png" />
-                  <p>Docker</p>
-                </div>
-                <div className="docker">
-                  <img src="https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png" />
-                  <p>Docker</p>
-                </div>
-              </div>
+            <div>
+              <h1>skills</h1>
+              <ul>
+                <li className="unorder-list">
+                  {jobData.skills.map(each => (
+                    <SkillsCard datas={each} id={each.id} />
+                  ))}
+                </li>
+              </ul>
             </div>
-            <div className="life-at-company">
-              <div>
-                <h1>Life at Company</h1>
+            <div>
+              <h1>Life at company</h1>
+              <div className="life-at-company-logo">
                 <p>{description}</p>
+                <img src={imageUrl} alt="life at company" />
               </div>
-              <img src={imageUrl} />
             </div>
           </div>
           <div>
             <h1>Similar Jobs</h1>
-            <div className="item-card-container">
-              <div className="item-app-container">
-                <img
-                  className="logo2"
-                  src="https://assets.ccbp.in/frontend/react-js/jobby-app/netflix-img.png"
-                  alt="image1"
-                />
-
-                <div className="rating-head">
-                  <h1 className="item-heading">DevopsEnginner</h1>
-                  <div className="star">
-                    <i className="fas fa-star">{employmentType}</i>
-                  </div>
-                </div>
-              </div>
-              <div className="package">
-                <div className="loc-work">
-                  <i className="fas fa-map-marker-alt location">Delhi</i>
-                  <i className="fas fa-briefcase work">4</i>
-                </div>
-                <h1 className="perannum">10LPA</h1>
-              </div>
-              <hr />
-              <div>
-                <h1>Description</h1>
-
-                <p>
-                  Our core philosophy is people over process. Our culture has
-                  been instrumental to our success. It has helped us attract and
-                  retain stunning colleagues, making work here more satisfying.
-                  Entertainment, like friendship, is a fundamental human need,
-                  and it changes how we feel and gives us common ground. We want
-                  to entertain the world
-                </p>
-              </div>
-            </div>
+            <ul>
+              <li className="similar-job">
+                {similarJobs.map(eachJob => (
+                  <SimilarJobs jobsDetails={eachJob} id={eachJob.id} />
+                ))}
+              </li>
+            </ul>
           </div>
         </div>
       </>
     )
   }
 
+  renderLoadingView = () => (
+    <div className="products-details-loader-container" testid="loader">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </div>
+  )
+
+  renderFailureView = () => (
+    <div className="">
+      <img
+        alt="failure view"
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        className="failure-view-image"
+      />
+      <h1 className="">Oops! Something Went Wrong</h1>
+      <p>We cannot seem to find the page you are looking for</p>
+      <Link to="/">
+        <button type="button" className="button">
+          Retry
+        </button>
+      </Link>
+    </div>
+  )
+
+  renderJobItemDetails = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderJobItemDetailsView()
+      case apiStatusConstants.unsuccessful:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoadingView()
+      default:
+        return null
+    }
+  }
+
   render() {
-    return <div className="blog-container">{this.renderBlogItemDetails()}</div>
+    return (
+      <>
+        <Header />
+        <div>{this.renderJobItemDetails()}</div>
+      </>
+    )
   }
 }
-
-export default BlogItemDetails
+export default JobItemDetails

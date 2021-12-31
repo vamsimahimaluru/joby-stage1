@@ -24,14 +24,23 @@ const SearchDetails = props => {
               <div className="rating-head">
                 <h1>{title}</h1>
                 <div className="star">
-                  <i className="fas fa-star">{rating}</i>
+                  <p>
+                    <i className="fas fa-star" />
+                    {rating}
+                  </p>
                 </div>
               </div>
             </div>
             <div className="package">
               <div className="loc-work">
-                <i className="fas fa-map-marker-alt location">{location}</i>
-                <i className="fas fa-briefcase work">{employmentType}</i>
+                <p>
+                  <i className="fas fa-map-marker-alt location" />
+                  {location}
+                </p>
+                <p>
+                  <i className="fas fa-briefcase work" />
+                  {employmentType}
+                </p>
               </div>
               <h1 className="perannum">{packagePerAnnum}</h1>
             </div>

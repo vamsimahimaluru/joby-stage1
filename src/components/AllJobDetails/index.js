@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import SearchDetails from '../SearchDetails/index'
@@ -32,7 +33,7 @@ class JobDetails extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
 
-    const jwtToken = Cookies.get('jwt_token')
+    const jwtToken = Cookies.get('jw_token')
     const jobsApiUrl = 'https://apis.ccbp.in/jobs'
     const options = {
       headers: {
@@ -85,8 +86,12 @@ class JobDetails extends Component {
               type="Search"
               onChange={this.onChangeInput}
             />
-            <button type="button" testid="searchButton">
-              <i className="fas fa-search">0</i>
+            <button
+              type="button"
+              testid="searchButton"
+              onClick={this.onChangeInput}
+            >
+              <i className="fas fa-search" />
             </button>
           </div>
 
@@ -103,25 +108,23 @@ class JobDetails extends Component {
   renderJobDetailsListFailureView = () => (
     <div className="failure-view">
       <img
-        src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
         alt="no jobs"
         className="failure-image"
       />
-      <button type="button" className="button">
-        Retry
-      </button>
+      <h1>Oops! Something Went Wrong</h1>
+      <p>We cannot seem to find the page you are looking for</p>
+      <Link to="jobs">
+        <button type="button" className="button">
+          Retry
+        </button>
+      </Link>
     </div>
   )
 
   renderLoadingView = () => (
-    <div className="loader-container">
-      <Loader
-        type="ThreeDots"
-        color="#0b69ff"
-        height="50"
-        width="50"
-        testid="loader"
-      />
+    <div className="loader-container" testid="loader">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
